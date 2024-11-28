@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:project_f/db/data_provider.dart';
+import 'package:project_f/db/database.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  final database = AppDatabase();
+  final dataProvider = DataProvider(database)
+  runApp(MyApp(db: dataProvider));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final DataProvider db;
+  const MyApp({super.key, required this.db});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(providers: [
+      Provider<DataProvider>(create:(_)=>db),
+    ],
+    child:MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Project F'),
+    ),
     );
   }
 }
@@ -111,7 +121,8 @@ class _MyHomePageState extends State<MyHomePage> {
               width: isSidebarExpanded ? 250 : 57,
               child: NavigationDrawer(
                   tilePadding: const EdgeInsets.symmetric(horizontal: 0),
-                  indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.zero)),
+                  indicatorShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.zero)),
                   children: [
                     NavigationDrawerDestination(
                         icon: const Icon(Icons.dashboard),

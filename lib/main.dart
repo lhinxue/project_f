@@ -71,15 +71,15 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications, color: Colors.white),
+            icon: const Icon(Icons.notifications, color: Colors.white),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.search, color: Colors.white),
+            icon: const Icon(Icons.search, color: Colors.white),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.account_circle, color: Colors.white),
+            icon: const Icon(Icons.account_circle, color: Colors.white),
             onPressed: () {},
           ),
         ],
@@ -94,6 +94,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
+      // drawer: const NavigationDrawer(children: [
+      //   NavigationDrawerDestination(
+      //       icon: Icon(Icons.dashboard), label: Text('Dashboard')),
+      //   NavigationDrawerDestination(
+      //       icon: Icon(Icons.dashboard), label: Text('Dashboard')),
+      //   NavigationDrawerDestination(
+      //       icon: Icon(Icons.dashboard), label: Text('Dashboard'))
+      // ]),
       body: Expanded(
         child: Row(
           children: [
@@ -101,35 +109,29 @@ class _MyHomePageState extends State<MyHomePage> {
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,
-              width: isSidebarExpanded ? 250 : 70,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Sidebar Items
-                  SidebarItem(
-                    icon: Icons.dashboard,
-                    label: 'Dashboard',
-                    isExpanded: isSidebarExpanded,
-                  ),
-                  SidebarItem(
-                    icon: Icons.settings,
-                    label: 'Settings',
-                    isExpanded: isSidebarExpanded,
-                  ),
-                  SidebarItem(
-                    icon: Icons.info,
-                    label: 'About',
-                    isExpanded: isSidebarExpanded,
-                  ),
-                  // Add more items here
-                ],
-              ),
+              width: isSidebarExpanded ? 250 : 57,
+              child: NavigationDrawer(
+                  tilePadding: const EdgeInsets.symmetric(horizontal: 0),
+                  indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.zero)),
+                  children: [
+                    NavigationDrawerDestination(
+                        icon: const Icon(Icons.dashboard),
+                        label:
+                            isSidebarExpanded ? Text('Dashboard') : Text('')),
+                    NavigationDrawerDestination(
+                        icon: const Icon(Icons.dashboard),
+                        label:
+                            isSidebarExpanded ? Text('Dashboard') : Text('')),
+                    NavigationDrawerDestination(
+                        icon: Icon(Icons.dashboard),
+                        label: isSidebarExpanded ? Text('Dashboard') : Text(''))
+                  ]),
             ),
             // Main Content Area
             Expanded(
               child: Container(
                 color: Colors.grey[200],
-                child: Center(
+                child: const Center(
                   child: Text(
                     'Content Area',
                     style: TextStyle(fontSize: 24),
